@@ -1,0 +1,140 @@
+@import 'tailwindcss';
+
+/* ドラマ「VIVANT」の砂漠の夕景をイメージした配色。漆黒の地に砂金色のアクセント */
+@theme {
+  --color-night: #0b0907;
+  --color-surface: #16120d;
+  --color-line: #3a3023;
+  --color-ink: #efe6d3;
+  --color-muted: #a39581;
+  --color-dim: #6f6454;
+  --color-sand: #c9a45c;
+  /* 犯罪者 = 炎上の赤 / 善人 = 砂色 */
+  --color-ari: #d4483b;
+  --color-nashi: #e0c27a;
+  /* 「不祥事（犯罪ではない）」 */
+  --color-fusho: #e0913c;
+
+  --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+  --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
+  --font-display: 'Montserrat', 'Noto Sans JP', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  /* 画面下端に沈む夕日の残光 */
+  background:
+    radial-gradient(120% 55% at 50% 115%, rgba(176, 108, 40, 0.38) 0%, rgba(176, 108, 40, 0) 70%),
+    var(--color-night);
+  background-attachment: fixed;
+  /* 端でのバウンスや引っ張り更新で画面が動かないようにする */
+  overscroll-behavior: none;
+}
+
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--font-serif);
+    letter-spacing: 0.06em;
+  }
+}
+
+@utility bg-gold {
+  background-image: linear-gradient(135deg, #e2c27e, #a8823f);
+}
+
+@utility text-gold {
+  background-image: linear-gradient(180deg, #f1dcab, #b8904a);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* ジャミーンのリアクション */
+.jameen {
+  transform-box: view-box;
+  transform-origin: 120px 300px;
+}
+
+.jameen-idle {
+  animation: jameen-breathe 3.2s ease-in-out infinite;
+}
+
+.jameen-smile {
+  animation: jameen-hop 0.55s ease-out;
+}
+
+.jameen-hide {
+  animation: jameen-shake 0.5s ease-in-out 2;
+}
+
+.jameen-uneasy {
+  animation: jameen-sway 1.1s ease-in-out;
+}
+
+@keyframes jameen-breathe {
+  50% {
+    transform: translateY(-2px) scale(1.005);
+  }
+}
+
+@keyframes jameen-hop {
+  30% {
+    transform: translateY(-14px);
+  }
+  60% {
+    transform: translateY(0) scale(1.02, 0.98);
+  }
+}
+
+@keyframes jameen-shake {
+  20% {
+    transform: translateX(-6px) rotate(-1.5deg);
+  }
+  60% {
+    transform: translateX(6px) rotate(1.5deg);
+  }
+}
+
+@keyframes jameen-sway {
+  35% {
+    transform: rotate(-2.5deg);
+  }
+  70% {
+    transform: rotate(1.5deg);
+  }
+}
+
+/* 写真が「見せられる」演出 */
+.photo-in {
+  animation: photo-in 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+
+@keyframes photo-in {
+  from {
+    opacity: 0;
+    transform: translateX(-40px) rotate(-12deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jameen-idle,
+  .jameen-smile,
+  .jameen-hide,
+  .jameen-uneasy,
+  .photo-in {
+    animation: none;
+  }
+}
