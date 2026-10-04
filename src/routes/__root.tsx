@@ -23,7 +23,7 @@ export const Route = createRootRoute({
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@500;700;900&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&display=swap',
       },
       {
         rel: 'stylesheet',
@@ -42,14 +42,10 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <div className="mx-auto min-h-screen max-w-2xl px-4 pb-10">
-          <header className="mb-6 border-b border-line py-4 text-center">
-            <Link to="/" className="inline-block no-underline">
-              <span className="text-gold block font-serif text-2xl font-black tracking-[0.25em]">
-                ジャミーンゲーム
-              </span>
-              <span className="mt-1 block font-display text-[10px] tracking-[0.6em] text-sand">
-                JAMEEN GAME
-              </span>
+          <header className="mb-6 border-b border-line pt-5 pb-4 text-center">
+            <Link to="/" className="inline-block no-underline" aria-label="ジャミーンゲーム">
+              <span className="logo-sub block">ジャミーンゲーム</span>
+              <span className="logo-main block">JAMEEN</span>
             </Link>
           </header>
           {children}

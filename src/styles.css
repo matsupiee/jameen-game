@@ -9,6 +9,8 @@
   --color-muted: #a39581;
   --color-dim: #6f6454;
   --color-sand: #c9a45c;
+  /* タイトルロゴの赤 */
+  --color-logo: #c5321f;
   /* 犯罪者 = 炎上の赤 / 善人 = 砂色 */
   --color-ari: #d4483b;
   --color-nashi: #e0c27a;
@@ -137,4 +139,24 @@ body {
   .photo-in {
     animation: none;
   }
+}
+
+/* タイトルロゴ: 真っ赤な極太ゴシック。小さな日本語の上段 + 大きな英字の下段 */
+.logo-main {
+  color: var(--color-logo);
+  font-family: 'Archivo', 'Arial Black', 'Impact', sans-serif;
+  font-weight: 900;
+  font-stretch: 72%;
+  font-size: clamp(3.75rem, 19vw, 6.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.01em;
+}
+
+.logo-sub {
+  color: var(--color-logo);
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 900;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.15rem;
 }
