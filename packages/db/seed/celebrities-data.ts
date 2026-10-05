@@ -567,6 +567,8 @@ export const scandalCelebrities = [
     category: 'scandal' as const,
     scandalSummary: '過去の二股交際報道に伴う活動休止',
     sourceUrl: '',
+    imageSourceUrl:
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSz4hrZGsaHwD0vBT93WnncNO1ebypYsGvf7HiIQxD83A&s=10',
   },
   {
     name: '東海オンエア・しばゆー',
@@ -861,7 +863,7 @@ export const goodCelebrities = [
     name: '有吉弘行',
     profile: 'タレント',
     imageSourceUrl:
-      'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Replace_this_image_JA.svg/330px-Replace_this_image_JA.svg.png?utm_source=ja.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      'https://www.ohtapro.co.jp/talent/images/ariyoshihiroiki.jpg',
   },
   {
     name: '夏目三久/有吉弘行夫妻',
@@ -1322,7 +1324,7 @@ export const goodCelebrities = [
     name: 'カズレーザー（メイプル超合金）',
     profile: 'お笑い芸人',
     imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E3%82%AB%E3%82%BA%E3%83%AC%E3%83%BC%E3%82%B6%E3%83%BC%EF%BC%88%E3%83%A1%E3%82%A4%E3%83%97%E3%83%AB%E8%B6%85%E5%90%88%E9%87%91%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQMJmp8Lh1lXvHGXEBGa8o3mZSItuHPIoddbSn_c6ZqdVi91raTyFZJ0cw&s=10',
   },
   {
     name: 'HIKAKIN（ヒカキン）',
