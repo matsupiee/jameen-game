@@ -45,7 +45,6 @@ function Home() {
                 >
                   <div className="min-w-0">
                     <p className="truncate font-bold">{q.title}</p>
-                    {q.description && <p className="text-sm text-muted">{q.description}</p>}
                     <p className="mt-1 text-xs text-dim">
                       {q.questionCount}問 ・ {q.playCount}回プレイ
                     </p>

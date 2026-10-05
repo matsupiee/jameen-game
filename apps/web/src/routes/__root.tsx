@@ -43,11 +43,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <body>
         <div className="mx-auto min-h-screen max-w-2xl px-4 pb-10">
           <header className="mb-3 border-b border-line pt-3 pb-2 text-left sm:mb-6 sm:pt-5 sm:pb-4 sm:text-center">
-            <Link
-              to="/"
-              className="inline-flex flex-row-reverse items-baseline gap-2 no-underline sm:flex-col sm:items-center sm:gap-0"
-              aria-label="ジャミーンゲーム"
-            >
+            <Link to="/" className="inline-block no-underline" aria-label="ジャミーンゲーム">
               <span className="logo-sub block">ジャミーンゲーム</span>
               <span className="logo-main block">JAMEEN</span>
             </Link>

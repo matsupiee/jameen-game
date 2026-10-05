@@ -29,10 +29,7 @@ function QuizPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-black">{quiz.title}</h1>
-        {quiz.description && <p className="text-muted">{quiz.description}</p>}
-      </div>
+      <h1 className="text-2xl font-black">{quiz.title}</h1>
 
       {records ? (
         <Result quizId={quiz.id} celebrities={quiz.celebrities} records={records} onRetry={retry} />
