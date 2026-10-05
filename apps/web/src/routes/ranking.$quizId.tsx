@@ -36,7 +36,7 @@ function RankingPage() {
       <Link
         to="/quiz/$quizId"
         params={{ quizId: String(quiz.id) }}
-        className="inline-block rounded-xl bg-gold px-5 py-3 font-bold text-night no-underline"
+        className="inline-block rounded-xl bg-crimson px-5 py-3 font-bold text-ink no-underline"
       >
         挑戦する
       </Link>

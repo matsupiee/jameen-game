@@ -301,7 +301,7 @@ function RevealPanel({
       <button
         type="button"
         onClick={onNext}
-        className="bg-gold w-full rounded-xl py-3 font-bold text-night"
+        className="bg-crimson w-full rounded-xl py-3 font-bold text-ink"
       >
         {isLast ? '結果を見る' : '次の写真へ'}
       </button>
