@@ -45,20 +45,22 @@ function Home() {
                       {q.questionCount}問 ・ {q.playCount}回プレイ
                     </p>
                   </div>
-                  <div className="flex shrink-0 gap-2">
-                    <Link
-                      to="/ranking/$quizId"
-                      params={{ quizId: String(q.id) }}
-                      className="rounded-xl px-3 py-2 text-sm text-ink/80 ring-1 ring-line no-underline"
-                    >
-                      ランキング
-                    </Link>
+                  <div className="flex shrink-0 items-center gap-2">
                     <Link
                       to="/quiz/$quizId"
                       params={{ quizId: String(q.id) }}
                       className="rounded-xl bg-crimson px-4 py-2 text-sm font-bold text-ink no-underline"
                     >
                       挑戦
+                    </Link>
+                    <Link
+                      to="/ranking/$quizId"
+                      params={{ quizId: String(q.id) }}
+                      aria-label="ランキング"
+                      title="ランキング"
+                      className="flex size-9 items-center justify-center rounded-xl text-white ring-1 ring-line no-underline"
+                    >
+                      <CrownIcon />
                     </Link>
                   </div>
                 </li>
@@ -68,5 +70,14 @@ function Home() {
         ))}
       </section>
     </div>
+  )
+}
+
+function CrownIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-5">
+      <path d="M2.5 7.5l5 4.5L12 4l4.5 8 5-4.5L19.5 18h-15L2.5 7.5z" />
+      <rect x="4.5" y="19" width="15" height="2" rx="1" />
+    </svg>
   )
 }

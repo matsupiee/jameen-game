@@ -104,9 +104,9 @@ function Result({
     <div className="space-y-6">
       <div className="rounded-2xl bg-surface p-6 text-center ring-1 ring-line">
         <p className="text-muted">結果</p>
-        <p className="text-gold text-6xl font-black">
+        <p className="text-6xl font-black text-white">
           {score}
-          <span className="text-2xl text-muted"> / {records.length}</span>
+          <span className="text-2xl"> / {records.length}</span>
         </p>
       </div>
 
@@ -134,9 +134,11 @@ function Result({
           <li key={r.celebrityId} className="rounded-2xl bg-surface p-4 ring-1 ring-line">
             <div className="flex items-center justify-between gap-3">
               <p className="font-bold">{nameById.get(r.celebrityId)}</p>
-              <p className={r.correct ? 'font-bold text-nashi' : 'font-bold text-ari'}>
-                {r.correct ? '○ 正解' : '× 不正解'}
-              </p>
+              {r.correct ? (
+                <CheckIcon className="size-6 shrink-0 text-white" label="正解" />
+              ) : (
+                <CrossIcon className="size-6 shrink-0 text-ari" label="不正解" />
+              )}
             </div>
             <p className="text-sm text-muted">
               正解: {CATEGORY_LABEL[r.category]} / あなた: {CATEGORY_SHORT[r.answer]}
@@ -173,5 +175,40 @@ function Result({
         </Link>
       </div>
     </div>
+  )
+}
+
+function CheckIcon({ className, label }: { className?: string; label: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={3}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      role="img"
+      aria-label={label}
+      className={className}
+    >
+      <path d="M4.5 12.5l5 5 10-11" />
+    </svg>
+  )
+}
+
+function CrossIcon({ className, label }: { className?: string; label: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={3}
+      strokeLinecap="round"
+      role="img"
+      aria-label={label}
+      className={className}
+    >
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
   )
 }
