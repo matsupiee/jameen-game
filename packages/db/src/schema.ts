@@ -1,6 +1,7 @@
 import { index, integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 import { CATEGORIES } from './category'
+import { GENRES } from './genre'
 
 export const celebrities = sqliteTable('celebrities', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -20,6 +21,8 @@ export const quizzes = sqliteTable('quizzes', {
   id: integer('id').primaryKey({ autoIncrement: true }),
   title: text('title').notNull(),
   description: text('description'),
+  // セットのジャンル（女優編、お笑い芸人編など）。トップページでジャンルごとにまとめて表示する
+  genre: text('genre', { enum: GENRES }).notNull().default('mix'),
   createdAt: integer('created_at', { mode: 'timestamp' })
     .notNull()
     .default(sql`(unixepoch())`),

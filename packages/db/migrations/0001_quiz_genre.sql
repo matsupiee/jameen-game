@@ -1,0 +1,1 @@
+ALTER TABLE `quizzes` ADD `genre` text DEFAULT 'mix' NOT NULL;
