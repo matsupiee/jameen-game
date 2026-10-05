@@ -43,13 +43,12 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
 
 ## デプロイ（Cloudflare）
 
-1. `bunx wrangler d1 create jameen-game` で D1 を作成し、発行された `database_id` を `apps/web/wrangler.jsonc` に設定
-2. `bunx wrangler r2 bucket create jameen-game-images` で画像用の R2 バケットを作成
-3. `bun run db:migrate:remote`
-4. `packages/db/.env.example` を `packages/db/.env` にコピーし、`CLOUDFLARE_ACCOUNT_ID` と `CLOUDFLARE_API_TOKEN`（D1 と R2 の編集権限）を設定して `bun seed --remote --yes`
-5. `bun run deploy`
+初回セットアップ・日常の運用・トラブルシューティングは [docs/deploy.md](docs/deploy.md) を参照。概要:
 
-`bun seed --remote` は本番のランキングも含めて全データを作り直すので注意。
+1. `wrangler d1 create` で D1、`wrangler r2 bucket create` で R2 を作成し、`database_id` を `apps/web/wrangler.jsonc` に設定
+2. `bun run db:migrate:remote`
+3. `packages/db/.env` に `CLOUDFLARE_ACCOUNT_ID` と `CLOUDFLARE_API_TOKEN` を設定して `bun seed --remote --yes`（本番のランキングも作り直される）
+4. `bun run deploy`
 
 ## 問題データについて
 
