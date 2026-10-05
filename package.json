@@ -30,7 +30,8 @@
     "db:generate": "turbo run db:generate -F @jameen/db",
     "db:migrate:local": "bun run --cwd apps/web db:migrate:local",
     "db:migrate:remote": "bun run --cwd apps/web db:migrate:remote",
-    "seed": "turbo run seed -F @jameen/db --"
+    "seed": "turbo run seed -F @jameen/db --",
+    "reset": "rm -rf apps/web/.wrangler/state/v3/d1 && bun run db:migrate:local && bun run seed"
   },
   "devDependencies": {
     "@jameen/config": "workspace:*",
