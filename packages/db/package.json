@@ -1,0 +1,25 @@
+{
+  "name": "@jameen/db",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./*": "./src/*.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "seed": "bun run seed/run.ts"
+  },
+  "dependencies": {
+    "drizzle-orm": "catalog:"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "catalog:",
+    "@jameen/config": "workspace:*",
+    "@types/bun": "catalog:",
+    "drizzle-kit": "^0.31.11",
+    "typescript": "catalog:",
+    "wrangler": "catalog:"
+  }
+}
