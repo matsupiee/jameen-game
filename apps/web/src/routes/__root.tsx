@@ -34,10 +34,11 @@ export const Route = createRootRoute({
   shellComponent: RootDocument,
 })
 
-// クイズ画面は戻るボタン付きの専用ヘッダーを自前で出すので、ロゴのヘッダーは出さない
+// クイズ画面・ランキング画面は戻るボタン付きの専用ヘッダーを自前で出すので、ロゴのヘッダーは出さない
 function SiteHeader() {
   const isQuiz = useMatch({ from: '/quiz/$quizId', shouldThrow: false })
-  if (isQuiz) return null
+  const isRanking = useMatch({ from: '/ranking/$quizId', shouldThrow: false })
+  if (isQuiz || isRanking) return null
 
   return (
     <header className="mb-3 border-b border-line pt-3 pb-2 text-left sm:mb-6 sm:pt-5 sm:pb-4 sm:text-center">
