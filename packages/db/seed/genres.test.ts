@@ -20,7 +20,9 @@ describe('genreOf', () => {
     ['ロックバンド', 'artist'],
     ['アイドルグループ', 'artist'],
     ['タレント', 'talent'],
-    ['フリーアナウンサー', 'talent'],
+    ['フリーアナウンサー', 'announcer'],
+    ['元フジテレビアナウンサー', 'announcer'],
+    ['司会者', 'talent'],
     ['元アスリート/タレント', 'talent'],
   ] as const)('%s → %s', (profile, genre) => {
     expect(genreOf(profile)).toBe(genre)
@@ -32,7 +34,15 @@ describe('genreOf', () => {
       const genre = genreOf(c.profile)
       counts.set(genre, (counts.get(genre) ?? 0) + 1)
     }
-    for (const genre of ['actress', 'actor', 'comedian', 'youtuber', 'talent', 'artist']) {
+    for (const genre of [
+      'actress',
+      'actor',
+      'comedian',
+      'youtuber',
+      'talent',
+      'announcer',
+      'artist',
+    ]) {
       expect(counts.get(genre) ?? 0).toBeGreaterThanOrEqual(10)
     }
   })

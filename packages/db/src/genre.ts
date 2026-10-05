@@ -5,6 +5,7 @@ export const GENRES = [
   'comedian',
   'youtuber',
   'talent',
+  'announcer',
   'artist',
   'mix',
 ] as const
@@ -17,6 +18,7 @@ export const GENRE_LABELS: Record<Genre, string> = {
   comedian: 'お笑い芸人',
   youtuber: 'YouTuber',
   talent: 'タレント',
+  announcer: 'アナウンサー',
   artist: 'アーティスト',
   mix: 'MIX',
 }

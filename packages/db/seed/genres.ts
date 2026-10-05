@@ -8,6 +8,7 @@ const RULES: [CelebrityGenre, RegExp][] = [
   ['comedian', /お笑い/],
   ['youtuber', /YouTube|配信者/],
   ['actor', /俳優|歌舞伎/],
+  ['announcer', /アナウンサー/],
   ['artist', /アーティスト|ミュージシャン|シンガー|歌手|バンド|ユニット|グループ|デュオ|ダンサー/],
 ]
 

@@ -15,7 +15,7 @@ export type SeedDatabase = BaseSQLiteDatabase<'async', any, typeof schema>
 const QUIZ_SIZE = 10
 
 // ジャンルを問わず全員から出題する MIX 編のセット数
-const MIX_QUIZ_COUNT = 5
+const MIX_QUIZ_COUNT = 10
 
 // MIX 編の1セット10人の内訳
 const PER_QUIZ = { criminal: 2, scandal: 3, good: 5 } as const
