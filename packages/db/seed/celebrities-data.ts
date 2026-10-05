@@ -469,7 +469,7 @@ export const scandalCelebrities = [
     scandalSummary: '女性への粗暴行為（東京都迷惑防止条例違反容疑）で現行犯逮捕',
     sourceUrl: '',
     imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E3%83%B4%E3%82%A1%E3%83%B3%E3%83%93%EF%BC%88%E7%99%BD%E4%BA%95%E7%AB%9C%E6%A8%B9%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://prcdn.freetls.fastly.net/release_image/139122/6/139122-6-bb0c68be3b922d56e308ed66580155bc-580x856.png?width=1950&height=1350&quality=85%2C75&format=jpeg&auto=webp&fit=bounds&bg-color=fff',
   },
   {
     name: 'モーリー（禁断ボーイズ）',
@@ -1127,7 +1127,7 @@ export const goodCelebrities = [
     name: '米津玄師',
     profile: 'ミュージシャン',
     imageSourceUrl:
-      'https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Replace_this_image_JA.svg/1280px-Replace_this_image_JA.svg.png?utm_source=ja.wikipedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6AYzZVw_-x2NH_Nhj6TnYjpVhHbiSdmlC_E8OIkru7g&s=10',
   },
   {
     name: 'あいみょん',
@@ -1385,13 +1385,7 @@ export const goodCelebrities = [
     name: 'レトルト',
     profile: 'YouTuber',
     imageSourceUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/8/84/My_retort.jpg?utm_source=ja.wikipedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail_unscaled',
-  },
-  {
-    name: 'ポッキー（Pocky）',
-    profile: 'YouTuber',
-    imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E3%83%9D%E3%83%83%E3%82%AD%E3%83%BC%EF%BC%88Pocky%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://i.pinimg.com/736x/81/83/d7/8183d7ffc9f290bb371ec1c69a7b187a.jpg',
   },
   {
     name: '水溜りボンド（カンタ・トミー）',
@@ -1405,7 +1399,7 @@ export const goodCelebrities = [
     imageSourceUrl:
       'https://tse1.mm.bing.net/th?q=%E6%9D%B1%E6%B5%B7%E3%82%AA%E3%83%B3%E3%82%A8%E3%82%A2%E3%83%BB%E3%81%A6%E3%81%A4%E3%82%84%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
   },
-  { name: 'QuizKnock（伊沢拓司ほか）', profile: 'YouTubeチャンネル' },
+  { name: 'QuizKnock', profile: 'YouTubeチャンネル', imageSourceUrl: 'https://img.kai-you.net/storage/2024/08/cf7438fe-f569-4d49-af1f-9e5a96fe710a/main/origin.webp' },
   {
     name: 'リュウジ（料理研究家）',
     profile: 'YouTuber/料理研究家',
