@@ -58,6 +58,9 @@ const PLACEHOLDER_GRADIENTS = [
 
 type Phase = 'choosing' | 'checking' | 'revealed'
 
+// 判定が速く返ってきても、ジャミーンが写真を「じーっ」と見つめる時間は最低これだけ確保する
+const MIN_STARE_MS = 800
+
 export function QuizPlayer({
   quizId,
   celebrities,
@@ -87,7 +90,10 @@ export function QuizPlayer({
       setPicked(answer)
       setError(null)
       try {
-        const result = await checkAnswer({ data: { quizId, celebrityId: current.id, answer } })
+        const [result] = await Promise.all([
+          checkAnswer({ data: { quizId, celebrityId: current.id, answer } }),
+          new Promise((resolve) => setTimeout(resolve, MIN_STARE_MS)),
+        ])
         setReveal(result)
         setPhase('revealed')
       } catch (e) {
