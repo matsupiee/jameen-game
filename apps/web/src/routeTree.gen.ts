@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CelebritiesRouteImport } from './routes/celebrities'
 import { Route as ImagesSplatRouteImport } from './routes/images/$'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as RankingQuizIdRouteImport } from './routes/ranking.$quizId'
@@ -17,6 +18,11 @@ import { Route as RankingQuizIdRouteImport } from './routes/ranking.$quizId'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CelebritiesRoute = CelebritiesRouteImport.update({
+  id: '/celebrities',
+  path: '/celebrities',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImagesSplatRoute = ImagesSplatRouteImport.update({
@@ -37,12 +43,14 @@ const RankingQuizIdRoute = RankingQuizIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/celebrities': typeof CelebritiesRoute
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/celebrities': typeof CelebritiesRoute
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
@@ -50,20 +58,29 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/celebrities': typeof CelebritiesRoute
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+  fullPaths:
+    '/' | '/celebrities' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
-  id: '__root__' | '/' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+  to: '/' | '/celebrities' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+  id:
+    | '__root__'
+    | '/'
+    | '/celebrities'
+    | '/images/$'
+    | '/quiz/$quizId'
+    | '/ranking/$quizId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CelebritiesRoute: typeof CelebritiesRoute
   ImagesSplatRoute: typeof ImagesSplatRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
   RankingQuizIdRoute: typeof RankingQuizIdRoute
@@ -76,6 +93,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/celebrities': {
+      id: '/celebrities'
+      path: '/celebrities'
+      fullPath: '/celebrities'
+      preLoaderRoute: typeof CelebritiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/images/$': {
@@ -104,6 +128,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CelebritiesRoute: CelebritiesRoute,
   ImagesSplatRoute: ImagesSplatRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
   RankingQuizIdRoute: RankingQuizIdRoute,
