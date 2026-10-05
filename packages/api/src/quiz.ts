@@ -44,11 +44,12 @@ export async function listQuizzes(db: Database) {
       id: quizzes.id,
       title: quizzes.title,
       description: quizzes.description,
+      genre: quizzes.genre,
       questionCount: sql<number>`(select count(*) from ${quizCelebrities} where ${quizCelebrities.quizId} = ${quizzes.id})`,
       playCount: sql<number>`(select count(*) from ${scores} where ${scores.quizId} = ${quizzes.id})`,
     })
     .from(quizzes)
-    .orderBy(desc(quizzes.id))
+    .orderBy(asc(quizzes.id))
 }
 
 /** 出題用。正解（category）や解説はここでは返さない。 */

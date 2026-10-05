@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
+import { GENRE_LABELS, GENRES } from '@jameen/db/genre'
 import { listQuizzes } from '#/server/quiz'
 
 export const Route = createFileRoute('/')({
@@ -8,6 +9,10 @@ export const Route = createFileRoute('/')({
 
 function Home() {
   const quizzes = Route.useLoaderData()
+  const groups = GENRES.map((genre) => ({
+    genre,
+    quizzes: quizzes.filter((q) => q.genre === genre),
+  })).filter((g) => g.quizzes.length > 0)
 
   return (
     <div className="space-y-8">
@@ -29,38 +34,43 @@ function Home() {
             クイズがまだありません。<code>bun run db:seed:local</code> でサンプルを投入できます。
           </p>
         )}
-        <ul className="space-y-3">
-          {quizzes.map((q) => (
-            <li
-              key={q.id}
-              className="flex items-center justify-between gap-4 rounded-2xl bg-surface p-4 ring-1 ring-line"
-            >
-              <div className="min-w-0">
-                <p className="truncate font-bold">{q.title}</p>
-                {q.description && <p className="text-sm text-muted">{q.description}</p>}
-                <p className="mt-1 text-xs text-dim">
-                  {q.questionCount}問 ・ {q.playCount}回プレイ
-                </p>
-              </div>
-              <div className="flex shrink-0 gap-2">
-                <Link
-                  to="/ranking/$quizId"
-                  params={{ quizId: String(q.id) }}
-                  className="rounded-xl px-3 py-2 text-sm text-ink/80 ring-1 ring-line no-underline"
+        {groups.map((g) => (
+          <div key={g.genre} className="space-y-3">
+            <h3 className="font-bold text-ink/80">{GENRE_LABELS[g.genre]}編</h3>
+            <ul className="space-y-3">
+              {g.quizzes.map((q) => (
+                <li
+                  key={q.id}
+                  className="flex items-center justify-between gap-4 rounded-2xl bg-surface p-4 ring-1 ring-line"
                 >
-                  ランキング
-                </Link>
-                <Link
-                  to="/quiz/$quizId"
-                  params={{ quizId: String(q.id) }}
-                  className="rounded-xl bg-gold px-4 py-2 text-sm font-bold text-night no-underline"
-                >
-                  挑戦
-                </Link>
-              </div>
-            </li>
-          ))}
-        </ul>
+                  <div className="min-w-0">
+                    <p className="truncate font-bold">{q.title}</p>
+                    {q.description && <p className="text-sm text-muted">{q.description}</p>}
+                    <p className="mt-1 text-xs text-dim">
+                      {q.questionCount}問 ・ {q.playCount}回プレイ
+                    </p>
+                  </div>
+                  <div className="flex shrink-0 gap-2">
+                    <Link
+                      to="/ranking/$quizId"
+                      params={{ quizId: String(q.id) }}
+                      className="rounded-xl px-3 py-2 text-sm text-ink/80 ring-1 ring-line no-underline"
+                    >
+                      ランキング
+                    </Link>
+                    <Link
+                      to="/quiz/$quizId"
+                      params={{ quizId: String(q.id) }}
+                      className="rounded-xl bg-gold px-4 py-2 text-sm font-bold text-night no-underline"
+                    >
+                      挑戦
+                    </Link>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </section>
     </div>
   )
