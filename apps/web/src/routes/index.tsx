@@ -17,14 +17,13 @@ function Home() {
   return (
     <div className="space-y-8">
       <section className="space-y-3">
-        <h1 className="text-3xl font-black">この人、善人？ それとも…</h1>
+        <h1 className="text-2xl font-black">善悪を見抜け！</h1>
         <p className="text-ink/80">
           ジャミーンに芸能人の写真を見せて、その人が善人・犯罪者・不祥事を起こしたが犯罪ではない人のどれかを当てよう。
         </p>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-bold">クイズを選ぶ</h2>
         {quizzes.length === 0 && (
           <p className="text-muted">
             クイズがまだありません。<code>bun run db:seed:local</code> でサンプルを投入できます。
