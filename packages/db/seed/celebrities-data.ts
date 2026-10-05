@@ -257,7 +257,7 @@ export const scandalCelebrities = [
     scandalSummary: '不倫報道（アパホテル不倫）',
     sourceUrl: '',
     imageSourceUrl:
-      'https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Gthumb.svg/330px-Gthumb.svg.png?utm_source=ja.wikipedia.org&utm_campaign=api&utm_content=thumbnail',
+      'https://www.sponichi.co.jp/entertainment/news/2024/09/08/jpeg/20240908s10041000183000p_view.webp',
   },
   {
     name: '原田龍二',
@@ -275,7 +275,7 @@ export const scandalCelebrities = [
     scandalSummary: '女性問題・不同意性交容疑等での書類送検・グループ脱退',
     sourceUrl: '',
     imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E6%96%89%E8%97%A4%E6%85%8E%E4%BA%8C%EF%BC%88%E3%82%B8%E3%83%A3%E3%83%B3%E3%82%B0%E3%83%AB%E3%83%9D%E3%82%B1%E3%83%83%E3%83%88%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuxzswSNiZKItfLZtVU0om-8UB-3dY86oWlKTxz0xyBQ&s=10',
   },
   {
     name: '中丸雄一（KAT-TUN）',
@@ -346,15 +346,6 @@ export const scandalCelebrities = [
     sourceUrl: '',
     imageSourceUrl:
       'https://fc.ismcdn.jp/mwimgs/0/d/1500wm/img_0d3aefdc89b7155c65ff35fcece61db83633236.jpg',
-  },
-  {
-    name: 'KENTA（ONE OK ROCK元メンバー）',
-    profile: 'アーティスト',
-    category: 'scandal' as const,
-    scandalSummary: '各種コンプライアンス問題',
-    sourceUrl: '',
-    imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=KENTA%EF%BC%88ONE%20OK%20ROCK%E5%85%83%E3%83%A1%E3%83%B3%E3%83%90%E3%83%BC%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
   },
   {
     name: '山本裕典',
@@ -550,7 +541,7 @@ export const scandalCelebrities = [
     scandalSummary: 'VALU騒動・BAN対応',
     sourceUrl: '',
     imageSourceUrl:
-      'https://upload.wikimedia.org/wikipedia/commons/6/6a/Arcángel_San_Rafael_(Bartolomé_Román).jpg?utm_source=ja.wikipedia.org&amp;utm_campaign=index&amp;utm_content=thumbnail_unscaled',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfGtFtHjvfKBNFiaWwFFXmzBR9tFFZl9dn2H3jNG0EhA&s=10',
   },
   {
     name: 'いっくん（禁断ボーイズ）',
@@ -755,7 +746,7 @@ export const scandalCelebrities = [
     scandalSummary: '学歴・経歴詐称報道による全番組降板',
     sourceUrl: '',
     imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%B3K%EF%BC%88%E3%82%B7%E3%83%A7%E3%83%BC%E3%83%B3%E3%83%BB%E3%83%9E%E3%82%AF%E3%82%A2%E3%83%BC%E3%83%89%E3%83%AB%E5%B7%9D%E4%B8%8A%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://shuchi.php.co.jp/userfiles/images/b/b2/sean_k_profile.png'
   },
   {
     name: '夏目三久',
@@ -858,13 +849,13 @@ export const goodCelebrities = [
     name: '博多華丸（博多華丸・大吉）',
     profile: 'お笑い芸人',
     imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E5%8D%9A%E5%A4%9A%E8%8F%AF%E4%B8%B8%EF%BC%88%E5%8D%9A%E5%A4%9A%E8%8F%AF%E4%B8%B8%E3%83%BB%E5%A4%A7%E5%90%89%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhxUPo4nH4Tp4mu19hftcDh06YxrGL1S7rLoXVaCpV0OW1om5BlMmIvDMQ8_GnktDvwWMFPj3A59Vzr4zTE0Kdgh5EnpVLNkK0p5LrpQ&s=10',
   },
   {
     name: '博多大吉（博多華丸・大吉）',
     profile: 'お笑い芸人',
     imageSourceUrl:
-      'https://tse1.mm.bing.net/th?q=%E5%8D%9A%E5%A4%9A%E5%A4%A7%E5%90%89%EF%BC%88%E5%8D%9A%E5%A4%9A%E8%8F%AF%E4%B8%B8%E3%83%BB%E5%A4%A7%E5%90%89%EF%BC%89%20%E9%A1%94%E5%86%99%E7%9C%9F&w=500&h=700&c=7',
+      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThW78fj57sYbSWGot8wvhxKvE5YGP-jwCv8HxyttvEDX0mNTxGLBkMxSng&s=10',
   },
   {
     name: '有吉弘行',
