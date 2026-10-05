@@ -9,7 +9,7 @@
       "binding": "DB",
       "database_name": "jameen-game",
       // ローカル開発では不要。デプロイ前に `wrangler d1 create jameen-game` で発行したIDに置き換える
-      "database_id": "00000000-0000-0000-0000-000000000000",
+      "database_id": "8872331a-4d2e-4279-a67e-1d6a59a7c82f",
       "migrations_dir": "../../packages/db/migrations",
     },
   ],
