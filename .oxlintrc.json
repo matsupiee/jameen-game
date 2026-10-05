@@ -2,5 +2,10 @@
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["typescript", "react", "import"],
   "categories": { "correctness": "error" },
-  "ignorePatterns": ["src/routeTree.gen.ts", "worker-configuration.d.ts", "dist", ".wrangler"]
+  "ignorePatterns": [
+    "**/routeTree.gen.ts",
+    "**/worker-configuration.d.ts",
+    "**/dist",
+    "**/.wrangler"
+  ]
 }

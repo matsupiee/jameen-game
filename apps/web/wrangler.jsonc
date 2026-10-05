@@ -1,0 +1,24 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "jameen-game",
+  "compatibility_date": "2025-09-02",
+  "compatibility_flags": ["nodejs_compat"],
+  "main": "@tanstack/react-start/server-entry",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "jameen-game",
+      // ローカル開発では不要。デプロイ前に `wrangler d1 create jameen-game` で発行したIDに置き換える
+      "database_id": "00000000-0000-0000-0000-000000000000",
+      "migrations_dir": "../../packages/db/migrations",
+    },
+  ],
+  "r2_buckets": [
+    {
+      // 芸能人の画像。`bun seed` が保存し、/images/$ ルートが配信する
+      "binding": "IMAGES",
+      // デプロイ前に `wrangler r2 bucket create jameen-game-images` で作成する
+      "bucket_name": "jameen-game-images",
+    },
+  ],
+}
