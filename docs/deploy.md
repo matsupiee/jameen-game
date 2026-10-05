@@ -92,6 +92,7 @@ bun run deploy
 | スキーマを変更       | `bun run db:generate` → `bun run db:migrate:remote` → `bun run deploy` |
 | 芸能人データを変更   | `bun seed --remote --yes`                                              |
 | 画像なしで素早く投入 | `bun seed --remote --yes --skip-images`                                |
+| 画像だけ入れ直す     | `bun seed --remote --images-only`（クイズ・ランキングは消えない）      |
 
 **`bun seed --remote` は本番のデータをすべて消して作り直す（ランキングも消える）。**
 そのため `--yes` を付けないと実行されない。

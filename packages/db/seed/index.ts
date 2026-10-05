@@ -1,4 +1,4 @@
-import { sql } from 'drizzle-orm'
+import { eq, sql } from 'drizzle-orm'
 import type { BaseSQLiteDatabase } from 'drizzle-orm/sqlite-core'
 import type { Category } from '../src/category'
 import type * as schema from '../src/schema'
@@ -40,13 +40,10 @@ function chunk<T>(array: readonly T[], size: number): T[][] {
   )
 }
 
-/**
- * シードデータを投入する。images を渡すと画像を R2 に保存してそのパスを使い、
- * 渡さなければ画像なしで投入する。
- * 何度実行しても同じ状態になるよう、既存データ（ランキングを含む）は消してから作り直す。
- */
-export async function seed(db: SeedDatabase, { images }: { images?: ImageStore } = {}) {
-  const source = [...scandalCelebrities, ...goodCelebrities]
+const source = [...scandalCelebrities, ...goodCelebrities]
+
+/** 画像を R2 に保存し、芸能人ごとの image_url を返す関数を作る（images がなければ常に null） */
+async function prepareImages(images: ImageStore | undefined) {
   const imagePaths = images
     ? await storeImages(
         images,
@@ -55,6 +52,16 @@ export async function seed(db: SeedDatabase, { images }: { images?: ImageStore }
     : new Map<string, string>()
   const imageUrl = (c: (typeof source)[number]) =>
     ('imageSourceUrl' in c && imagePaths.get(c.imageSourceUrl)) || null
+  return { imagePaths, imageUrl }
+}
+
+/**
+ * シードデータを投入する。images を渡すと画像を R2 に保存してそのパスを使い、
+ * 渡さなければ画像なしで投入する。
+ * 何度実行しても同じ状態になるよう、既存データ（ランキングを含む）は消してから作り直す。
+ */
+export async function seed(db: SeedDatabase, { images }: { images?: ImageStore } = {}) {
+  const { imagePaths, imageUrl } = await prepareImages(images)
 
   console.log('🧹 Clearing existing data...')
   await db.delete(scores)
@@ -136,6 +143,35 @@ export async function seed(db: SeedDatabase, { images }: { images?: ImageStore }
   console.log(
     `🎉 Seeded ${inserted.length} celebrities (${imagePaths.size} images), ${insertedQuizzes.length} quizzes, ${links.length} links`,
   )
+}
+
+/**
+ * 画像だけを入れ直す。R2 に画像を保存し、既存の芸能人の image_url を名前で突き合わせて更新する。
+ * クイズセットやランキングには触れない。
+ */
+export async function seedImages(db: SeedDatabase, images: ImageStore) {
+  const { imageUrl } = await prepareImages(images)
+
+  const existing = new Set(
+    (await db.select({ name: celebrities.name }).from(celebrities)).map((c) => c.name),
+  )
+  const targets = source.filter((c) => existing.has(c.name))
+  const missing = source.filter((c) => !existing.has(c.name))
+
+  console.log(`📝 Updating image_url of ${targets.length} celebrities...`)
+  for (const c of targets) {
+    await db
+      .update(celebrities)
+      .set({ imageUrl: imageUrl(c) })
+      .where(eq(celebrities.name, c.name))
+  }
+
+  console.log(`🎉 Updated ${targets.length} celebrities`)
+  if (missing.length > 0) {
+    console.warn(
+      `   ⚠️  DB にいない ${missing.length} 人はスキップしました（追加するには通常の seed を実行）: ${missing.map((c) => c.name).join(', ')}`,
+    )
+  }
 }
 
 type Member = { id: number; category: Category }

@@ -55,6 +55,8 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
 シードデータは `packages/db/seed/celebrities-data.ts` にあります。`imageSourceUrl` は画像のダウンロード元で、
 `bun seed` がダウンロードして R2 に保存し、`/images/...`（`apps/web/src/routes/images/$.ts` が R2 から配信）を
 `image_url` に入れます。保存ずみの画像は再ダウンロードしません。取得に失敗した芸能人は画像なしになります。
+画像だけを直したいときは `bun seed --images-only`（リモートは `--remote` も付ける）で、R2 への保存と既存の芸能人の
+`image_url` の更新（名前で突き合わせ）だけを行います。クイズセットやランキングは消えません。
 
 実在の芸能人を登録・修正する場合:
 
