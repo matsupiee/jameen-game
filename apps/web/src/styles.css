@@ -141,7 +141,7 @@ body {
 }
 
 /* タイトルロゴ: 真っ赤な極太ゴシック。小さな日本語の上段 + 大きな英字の下段
-   スマホでは選択肢が画面内に収まるよう、左上に小さく表示する */
+   ロゴのヘッダーはトップページだけで出すので、スマホでも PC と同じく大きく表示する */
 .logo-main {
   color: var(--color-logo);
   font-family: 'Archivo', 'Arial Black', 'Impact', sans-serif;
@@ -159,17 +159,4 @@ body {
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   margin-bottom: 0.15rem;
-}
-
-@media (max-width: 639.98px) {
-  .logo-main {
-    font-size: 1.75rem;
-    line-height: 1;
-  }
-
-  .logo-sub {
-    font-size: 0.55rem;
-    letter-spacing: 0.15em;
-    margin-bottom: 0.1rem;
-  }
 }
