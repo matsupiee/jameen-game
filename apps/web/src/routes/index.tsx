@@ -19,11 +19,7 @@ function Home() {
       <section className="space-y-3">
         <h1 className="text-3xl font-black">この人、善人？ それとも…</h1>
         <p className="text-ink/80">
-          ジャミーンに芸能人の写真を見せて、その人が
-          <span className="font-bold text-nashi">善人</span>・
-          <span className="font-bold text-ari">犯罪者</span>・
-          <span className="font-bold text-fusho">不祥事を起こしたが犯罪ではない人</span>
-          のどれかを当てよう。回答するとすぐに正解が分かります。10問中、何問正解できるか競おう。
+          ジャミーンに芸能人の写真を見せて、その人が善人・犯罪者・不祥事を起こしたが犯罪ではない人のどれかを当てよう。
         </p>
       </section>
 
