@@ -2,6 +2,9 @@ import type { Category } from '@jameen/db/category'
 
 export { CATEGORIES, type Category } from '@jameen/db/category'
 
+/** クイズ回答時に並べる選択肢の順番 */
+export const CHOICE_ORDER: readonly Category[] = ['good', 'scandal', 'criminal']
+
 export const CATEGORY_LABEL: Record<Category, string> = {
   good: '善人',
   criminal: '犯罪者',

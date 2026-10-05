@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import {
-  CATEGORIES,
   CATEGORY_HINT,
   CATEGORY_LABEL,
   CATEGORY_SHORT,
+  CHOICE_ORDER,
   type Category,
 } from '#/shared/category'
 import { checkAnswer } from '#/server/quiz'
@@ -118,7 +118,7 @@ export function QuizPlayer({
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === '1' || e.key === '2' || e.key === '3')
-        void choose(CATEGORIES[Number(e.key) - 1])
+        void choose(CHOICE_ORDER[Number(e.key) - 1])
       if (e.key === 'Enter') next()
     }
     window.addEventListener('keydown', onKey)
@@ -160,7 +160,7 @@ export function QuizPlayer({
         <RevealPanel reveal={reveal} picked={picked} isLast={isLast} onNext={next} />
       ) : (
         <div className="space-y-2">
-          {CATEGORIES.map((c, i) => (
+          {CHOICE_ORDER.map((c) => (
             <button
               key={c}
               type="button"
@@ -168,7 +168,6 @@ export function QuizPlayer({
               onClick={() => void choose(c)}
               className={`flex w-full items-center gap-3 rounded-xl bg-surface px-4 py-3 text-left ring-1 transition active:scale-[0.98] disabled:opacity-50 ${CATEGORY_RING[c]}`}
             >
-              <kbd className="font-display text-xs text-dim">{i + 1}</kbd>
               <span className="min-w-0 flex-1">
                 <span className={`block text-lg font-bold ${CATEGORY_TEXT_COLOR[c]}`}>
                   {CATEGORY_LABEL[c]}
