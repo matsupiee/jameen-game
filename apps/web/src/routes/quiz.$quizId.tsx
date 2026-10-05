@@ -96,7 +96,7 @@ function Result({
     <div className="space-y-6">
       <div className="rounded-2xl bg-surface p-6 text-center ring-1 ring-line">
         <p className="text-muted">結果</p>
-        <p className="text-gold font-serif text-6xl font-black">
+        <p className="text-gold text-6xl font-black">
           {score}
           <span className="text-2xl text-muted"> / {records.length}</span>
         </p>

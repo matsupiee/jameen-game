@@ -149,7 +149,7 @@ export function QuizPlayer({
         <Jameen expression={expression} className="absolute right-0 bottom-0 h-[56%]" />
         <p
           aria-live="polite"
-          className="absolute bottom-3 left-3 max-w-[46%] rounded-2xl rounded-br-sm bg-white/95 px-3 py-2 font-serif text-sm font-bold text-[#2a1d12] shadow-lg"
+          className="absolute bottom-3 left-3 max-w-[46%] rounded-2xl rounded-br-sm bg-white/95 px-3 py-2 text-sm font-bold text-[#2a1d12] shadow-lg"
         >
           {speech}
         </p>
@@ -170,7 +170,7 @@ export function QuizPlayer({
             >
               <kbd className="font-display text-xs text-dim">{i + 1}</kbd>
               <span className="min-w-0 flex-1">
-                <span className={`block font-serif text-lg font-bold ${CATEGORY_TEXT_COLOR[c]}`}>
+                <span className={`block text-lg font-bold ${CATEGORY_TEXT_COLOR[c]}`}>
                   {CATEGORY_LABEL[c]}
                 </span>
                 <span className="block text-xs text-muted">{CATEGORY_HINT[c]}</span>
@@ -242,14 +242,14 @@ function Photo({ celebrity }: { celebrity: QuizCelebrity }) {
         ) : (
           <span
             aria-hidden
-            className="absolute inset-0 flex items-center justify-center font-serif text-7xl font-black text-white/30"
+            className="absolute inset-0 flex items-center justify-center text-7xl font-black text-white/30"
           >
             {celebrity.name.slice(0, 1)}
           </span>
         )}
       </div>
       <figcaption className="py-1.5 text-center text-[#2a1d12]">
-        <p className="font-serif text-sm leading-tight font-bold">{celebrity.name}</p>
+        <p className="text-sm leading-tight font-bold">{celebrity.name}</p>
         {celebrity.profile && <p className="text-[10px] text-[#6b5a45]">{celebrity.profile}</p>}
       </figcaption>
     </figure>
@@ -274,16 +274,14 @@ function RevealPanel({
       className={`space-y-3 rounded-2xl p-4 ring-1 ${correct ? 'bg-nashi/10 ring-nashi/60' : 'bg-ari/10 ring-ari/60'}`}
     >
       <div className="flex items-baseline justify-between gap-3">
-        <p
-          className={`font-serif text-4xl font-black tracking-[0.3em] ${correct ? 'text-gold' : 'text-ari'}`}
-        >
+        <p className={`text-4xl font-black tracking-[0.3em] ${correct ? 'text-gold' : 'text-ari'}`}>
           {correct ? '正解' : '不正解'}
         </p>
         <p className="text-sm text-muted">あなたの回答: {CATEGORY_SHORT[picked]}</p>
       </div>
       <p className="text-sm">
         正解は{' '}
-        <span className={`font-serif text-base font-bold ${CATEGORY_TEXT_COLOR[category]}`}>
+        <span className={`text-base font-bold ${CATEGORY_TEXT_COLOR[category]}`}>
           {CATEGORY_LABEL[category]}
         </span>
       </p>

@@ -23,7 +23,7 @@ export const Route = createRootRoute({
       { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700;900&display=swap',
+        href: 'https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,900&family=Montserrat:wght@400;500;600&family=Noto+Sans+JP:wght@400;500;700;900&display=swap',
       },
       {
         rel: 'stylesheet',

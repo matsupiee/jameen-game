@@ -17,7 +17,6 @@
   /* 「不祥事（犯罪ではない）」 */
   --color-fusho: #e0913c;
 
-  --font-serif: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
   --font-sans: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', sans-serif;
   --font-display: 'Montserrat', 'Noto Sans JP', sans-serif;
 }
@@ -48,7 +47,6 @@ body {
 @layer base {
   h1,
   h2 {
-    font-family: var(--font-serif);
     letter-spacing: 0.06em;
   }
 }
