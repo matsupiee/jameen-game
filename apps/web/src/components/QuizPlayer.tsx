@@ -210,7 +210,7 @@ function Progress({
           const done = i < index ? records[i]?.correct : i === index ? currentCorrect : null
           const color =
             done === true
-              ? 'bg-nashi'
+              ? 'bg-white'
               : done === false
                 ? 'bg-ari'
                 : i === index
