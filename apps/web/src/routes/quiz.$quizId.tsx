@@ -29,10 +29,18 @@ function QuizPage() {
 
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-black">{quiz.title}</h1>
-        {quiz.description && <p className="text-muted">{quiz.description}</p>}
-      </div>
+      <header className="grid grid-cols-[2.5rem_1fr_2.5rem] items-center border-b border-line py-2">
+        <Link
+          to="/"
+          aria-label="クイズ一覧に戻る"
+          className="-ml-2 flex size-10 items-center justify-center rounded-full text-ink no-underline hover:bg-surface"
+        >
+          <svg viewBox="0 0 24 24" className="size-6" fill="none" stroke="currentColor" strokeWidth={2.5} aria-hidden="true">
+            <path d="M15 5l-7 7 7 7" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+        <h1 className="truncate text-center text-lg font-black">{quiz.title}</h1>
+      </header>
 
       {records ? (
         <Result quizId={quiz.id} celebrities={quiz.celebrities} records={records} onRetry={retry} />
