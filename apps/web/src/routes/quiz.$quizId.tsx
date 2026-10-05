@@ -114,7 +114,7 @@ function Result({
         <button
           type="submit"
           disabled={saving || playerName.trim() === ''}
-          className="bg-gold rounded-xl px-4 py-3 font-bold text-night disabled:opacity-50"
+          className="bg-crimson rounded-xl px-4 py-3 font-bold text-ink disabled:opacity-50"
         >
           ランキングに登録
         </button>

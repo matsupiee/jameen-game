@@ -61,7 +61,7 @@ function Home() {
                     <Link
                       to="/quiz/$quizId"
                       params={{ quizId: String(q.id) }}
-                      className="rounded-xl bg-gold px-4 py-2 text-sm font-bold text-night no-underline"
+                      className="rounded-xl bg-crimson px-4 py-2 text-sm font-bold text-ink no-underline"
                     >
                       挑戦
                     </Link>
