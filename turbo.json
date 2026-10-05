@@ -26,7 +26,8 @@
       "interactive": true
     },
     "seed": {
-      "cache": false
+      "cache": false,
+      "passThroughEnv": ["CLOUDFLARE_ACCOUNT_ID", "CLOUDFLARE_API_TOKEN"]
     }
   }
 }

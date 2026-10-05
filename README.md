@@ -24,7 +24,7 @@ packages/config   共通の tsconfig
 ```sh
 bun install
 bun run db:migrate:local   # ローカルD1にテーブル作成
-bun seed                   # シードデータ投入（既存データは消して作り直す）
+bun seed                   # シードデータ投入（画像は R2 に保存。既存データは消して作り直す）
 bun run dev                # http://localhost:3000（使用中なら次のポート）
 ```
 
@@ -44,12 +44,20 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
 ## デプロイ（Cloudflare）
 
 1. `bunx wrangler d1 create jameen-game` で D1 を作成し、発行された `database_id` を `apps/web/wrangler.jsonc` に設定
-2. `bun run db:migrate:remote`
-3. `bun run deploy`
+2. `bunx wrangler r2 bucket create jameen-game-images` で画像用の R2 バケットを作成
+3. `bun run db:migrate:remote`
+4. `packages/db/.env.example` を `packages/db/.env` にコピーし、`CLOUDFLARE_ACCOUNT_ID` と `CLOUDFLARE_API_TOKEN`（D1 と R2 の編集権限）を設定して `bun seed --remote --yes`
+5. `bun run deploy`
+
+`bun seed --remote` は本番のランキングも含めて全データを作り直すので注意。
 
 ## 問題データについて
 
-シードデータは `packages/db/seed/celebrities-data.ts` にあります。実在の芸能人を登録・修正する場合:
+シードデータは `packages/db/seed/celebrities-data.ts` にあります。`imageSourceUrl` は画像のダウンロード元で、
+`bun seed` がダウンロードして R2 に保存し、`/images/...`（`apps/web/src/routes/images/$.ts` が R2 から配信）を
+`image_url` に入れます。保存ずみの画像は再ダウンロードしません。取得に失敗した芸能人は画像なしになります。
+
+実在の芸能人を登録・修正する場合:
 
 - 不祥事の内容は報道等で裏付けのある事実だけを `scandalSummary` に簡潔に書き、`sourceUrl` に出典を入れる
 - 「不祥事なし」の判定は誤りが名誉毀損につながりうるため、慎重に確認する

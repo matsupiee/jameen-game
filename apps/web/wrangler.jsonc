@@ -13,4 +13,12 @@
       "migrations_dir": "../../packages/db/migrations",
     },
   ],
+  "r2_buckets": [
+    {
+      // 芸能人の画像。`bun seed` が保存し、/images/$ ルートが配信する
+      "binding": "IMAGES",
+      // デプロイ前に `wrangler r2 bucket create jameen-game-images` で作成する
+      "bucket_name": "jameen-game-images",
+    },
+  ],
 }

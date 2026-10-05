@@ -1,7 +1,13 @@
 import { sql } from 'drizzle-orm'
-import type { Database } from '../src'
+import type { BaseSQLiteDatabase } from 'drizzle-orm/sqlite-core'
+import type * as schema from '../src/schema'
 import { celebrities, quizCelebrities, quizzes, scores } from '../src/schema'
 import { goodCelebrities, scandalCelebrities } from './celebrities-data'
+import { storeImages, type ImageStore } from './images'
+
+// ローカルの D1 バインディングと、リモート D1 への HTTP 接続のどちらでも流せるようにする
+// oxlint-disable-next-line typescript/no-explicit-any
+export type SeedDatabase = BaseSQLiteDatabase<'async', any, typeof schema>
 
 const QUIZ_COUNT = 20
 
@@ -26,8 +32,22 @@ function chunk<T>(array: readonly T[], size: number): T[][] {
   )
 }
 
-// 何度実行しても同じ状態になるよう、既存データは消してから作り直す
-export async function seed(db: Database) {
+/**
+ * シードデータを投入する。images を渡すと画像を R2 に保存してそのパスを使い、
+ * 渡さなければ画像なしで投入する。
+ * 何度実行しても同じ状態になるよう、既存データ（ランキングを含む）は消してから作り直す。
+ */
+export async function seed(db: SeedDatabase, { images }: { images?: ImageStore } = {}) {
+  const source = [...scandalCelebrities, ...goodCelebrities]
+  const imagePaths = images
+    ? await storeImages(
+        images,
+        source.flatMap((c) => ('imageSourceUrl' in c ? [c.imageSourceUrl] : [])),
+      )
+    : new Map<string, string>()
+  const imageUrl = (c: (typeof source)[number]) =>
+    ('imageSourceUrl' in c && imagePaths.get(c.imageSourceUrl)) || null
+
   console.log('🧹 Clearing existing data...')
   await db.delete(scores)
   await db.delete(quizCelebrities)
@@ -43,13 +63,13 @@ export async function seed(db: Database) {
       category: c.category,
       scandalSummary: c.scandalSummary,
       sourceUrl: c.sourceUrl || null,
-      imageUrl: 'imageUrl' in c ? c.imageUrl : null,
+      imageUrl: imageUrl(c),
     })),
     ...goodCelebrities.map((c) => ({
       name: c.name,
       profile: c.profile,
       category: 'good' as const,
-      imageUrl: 'imageUrl' in c ? c.imageUrl : null,
+      imageUrl: imageUrl(c),
     })),
   ]
 
@@ -104,6 +124,6 @@ export async function seed(db: Database) {
   }
 
   console.log(
-    `🎉 Seeded ${inserted.length} celebrities, ${insertedQuizzes.length} quizzes, ${links.length} links`,
+    `🎉 Seeded ${inserted.length} celebrities (${imagePaths.size} images), ${insertedQuizzes.length} quizzes, ${links.length} links`,
   )
 }
