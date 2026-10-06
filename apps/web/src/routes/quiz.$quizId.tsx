@@ -1,13 +1,23 @@
 import { useState } from 'react'
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
 import { QuizPlayer, type AnswerRecord } from '#/components/QuizPlayer'
+import { ShareButtons } from '#/components/ShareButtons'
 import { CATEGORY_LABEL, CATEGORY_SHORT } from '#/shared/category'
 import { getQuiz, submitScore } from '#/server/quiz'
+import { seo } from '#/shared/seo'
 
 const NAME_KEY = 'jameen-game:player-name'
 
 export const Route = createFileRoute('/quiz/$quizId')({
   loader: ({ params }) => getQuiz({ data: { quizId: Number(params.quizId) } }),
+  head: ({ loaderData, params }) =>
+    seo({
+      title: loaderData?.title,
+      description: loaderData
+        ? `「${loaderData.title}」の${loaderData.celebrities.length}人は善人？犯罪者？不祥事あり？ジャミーンと一緒に見抜いて、何問当てられるか挑戦しよう。`
+        : undefined,
+      path: `/quiz/${params.quizId}`,
+    }),
   component: QuizPage,
 })
 
@@ -43,7 +53,7 @@ function QuizPage() {
       </header>
 
       {records ? (
-        <Result quizId={quiz.id} celebrities={quiz.celebrities} records={records} onRetry={retry} />
+        <Result quizId={quiz.id} quizTitle={quiz.title} celebrities={quiz.celebrities} records={records} onRetry={retry} />
       ) : (
         <QuizPlayer key={round} quizId={quiz.id} celebrities={quiz.celebrities} onFinish={finish} />
       )}
@@ -53,11 +63,13 @@ function QuizPage() {
 
 function Result({
   quizId,
+  quizTitle,
   celebrities,
   records,
   onRetry,
 }: {
   quizId: number
+  quizTitle: string
   celebrities: { id: number; name: string }[]
   records: AnswerRecord[]
   onRetry: () => void
@@ -109,6 +121,8 @@ function Result({
           <span className="text-2xl"> / {records.length}</span>
         </p>
       </div>
+
+      <ShareButtons quizId={quizId} quizTitle={quizTitle} results={records.map((r) => r.correct)} />
 
       <form onSubmit={register} className="flex gap-2">
         <input
