@@ -46,7 +46,7 @@ export function seo({
       { property: 'og:image', content: image },
       { property: 'og:image:width', content: '1200' },
       { property: 'og:image:height', content: '630' },
-      { property: 'og:image:alt', content: `${SITE_NAME} - 善悪を見抜け！` },
+      { property: 'og:image:alt', content: `${SITE_NAME} JAMEEN - 顔写真を見て善悪を判定しよう` },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: fullTitle },
       { name: 'twitter:description', content: description },

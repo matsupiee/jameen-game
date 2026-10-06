@@ -74,7 +74,7 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
   URL はリクエストのオリジンから作るので、独自ドメインでも workers.dev でもそのまま動く
 - 検索結果に出すのはトップとクイズのページだけ（`/sitemap.xml` に載る）。ランキングと `/celebrities` は `noindex`、
   `/images/*` の芸能人の写真は `X-Robots-Tag: noindex` で画像検索に載せない
-- OGP 画像は `apps/web/public/og.png`（1200×630）。結果画面のシェアボタンは `apps/web/src/components/ShareButtons.tsx`
+- OGP 画像は `apps/web/public/og.png`（1200×630。ロゴと「顔写真を見て善悪を判定しよう」）。結果画面のシェアボタンは `apps/web/src/components/ShareButtons.tsx`
 
 ## 設計メモ
 
