@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CelebritiesRouteImport } from './routes/celebrities'
+import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ImagesSplatRouteImport } from './routes/images/$'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as RankingQuizIdRouteImport } from './routes/ranking.$quizId'
@@ -23,6 +25,16 @@ const IndexRoute = IndexRouteImport.update({
 const CelebritiesRoute = CelebritiesRouteImport.update({
   id: '/celebrities',
   path: '/celebrities',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
+  id: '/robots.txt',
+  path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ImagesSplatRoute = ImagesSplatRouteImport.update({
@@ -44,6 +56,8 @@ const RankingQuizIdRoute = RankingQuizIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/celebrities': typeof CelebritiesRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
@@ -51,6 +65,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/celebrities': typeof CelebritiesRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
@@ -59,6 +75,8 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/celebrities': typeof CelebritiesRoute
+  '/robots.txt': typeof RobotsDottxtRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
@@ -66,13 +84,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/celebrities' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+    | '/'
+    | '/celebrities'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/images/$'
+    | '/quiz/$quizId'
+    | '/ranking/$quizId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/celebrities' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+  to:
+    | '/'
+    | '/celebrities'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/images/$'
+    | '/quiz/$quizId'
+    | '/ranking/$quizId'
   id:
     | '__root__'
     | '/'
     | '/celebrities'
+    | '/robots.txt'
+    | '/sitemap.xml'
     | '/images/$'
     | '/quiz/$quizId'
     | '/ranking/$quizId'
@@ -81,6 +114,8 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CelebritiesRoute: typeof CelebritiesRoute
+  RobotsDottxtRoute: typeof RobotsDottxtRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ImagesSplatRoute: typeof ImagesSplatRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
   RankingQuizIdRoute: typeof RankingQuizIdRoute
@@ -100,6 +135,20 @@ declare module '@tanstack/react-router' {
       path: '/celebrities'
       fullPath: '/celebrities'
       preLoaderRoute: typeof CelebritiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/robots.txt': {
+      id: '/robots.txt'
+      path: '/robots.txt'
+      fullPath: '/robots.txt'
+      preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/images/$': {
@@ -129,6 +178,8 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CelebritiesRoute: CelebritiesRoute,
+  RobotsDottxtRoute: RobotsDottxtRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ImagesSplatRoute: ImagesSplatRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
   RankingQuizIdRoute: RankingQuizIdRoute,

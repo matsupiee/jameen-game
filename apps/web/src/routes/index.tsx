@@ -1,9 +1,11 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { GENRE_LABELS, GENRES } from '@jameen/db/genre'
 import { listQuizzes } from '#/server/quiz'
+import { seo } from '#/shared/seo'
 
 export const Route = createFileRoute('/')({
   loader: () => listQuizzes(),
+  head: () => seo({ path: '/' }),
   component: Home,
 })
 
