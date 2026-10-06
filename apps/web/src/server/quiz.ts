@@ -1,5 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
 import * as quiz from '@jameen/api/quiz'
+import { getSessionUser } from './auth'
 import { getDb } from './db'
 
 export const listQuizzes = createServerFn({ method: 'GET' }).handler(() =>
@@ -16,7 +17,10 @@ export const checkAnswer = createServerFn({ method: 'POST' })
 
 export const submitScore = createServerFn({ method: 'POST' })
   .validator(quiz.submitScoreSchema)
-  .handler(({ data }) => quiz.submitScore(getDb(), data))
+  .handler(async ({ data }) => {
+    const user = await getSessionUser()
+    return quiz.submitScore(getDb(), data, user?.id ?? null)
+  })
 
 export const getRanking = createServerFn({ method: 'GET' })
   .validator(quiz.quizIdSchema)

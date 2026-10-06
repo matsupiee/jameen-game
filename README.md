@@ -23,6 +23,7 @@ packages/config   共通の tsconfig
 
 ```sh
 bun install
+cp apps/web/.dev.vars.example apps/web/.dev.vars   # BETTER_AUTH_SECRET をランダムな値に書き換える
 bun run db:migrate:local   # ローカルD1にテーブル作成
 bun seed                   # シードデータ投入（画像は R2 に保存。既存データは消して作り直す）
 bun run dev                # http://localhost:3000（使用中なら次のポート）
@@ -47,8 +48,9 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
 
 1. `wrangler d1 create` で D1、`wrangler r2 bucket create` で R2 を作成し、`database_id` を `apps/web/wrangler.jsonc` に設定
 2. `bun run db:migrate:remote`
-3. `packages/db/.env` に `CLOUDFLARE_ACCOUNT_ID` と `CLOUDFLARE_API_TOKEN` を設定して `bun seed --remote --yes`（本番のランキングも作り直される）
-4. `bun run deploy`
+3. `wrangler secret put BETTER_AUTH_SECRET` で認証用のシークレットを設定
+4. `packages/db/.env` に `CLOUDFLARE_ACCOUNT_ID` と `CLOUDFLARE_API_TOKEN` を設定して `bun seed --remote --yes`（本番のランキングも作り直される）
+5. `bun run deploy`
 
 ## 問題データについて
 
@@ -69,5 +71,8 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
   タレント扱い）、ジャンル内の人数 ÷ 10 セットを重複なしで作る。MIX 編は全員から犯罪者2・不祥事3・善人5で作る
 
 ## 設計メモ
+
+ログインは better-auth の anonymous プラグインによる匿名ログインのみ。初回アクセス時に自動で匿名ユーザーを作り、
+ランキングのスコアにそのユーザーを紐付けます。詳細は `docs/adr/2026-10-06-anonymous-login-with-better-auth.md`。
 
 正解は出題時にクライアントへ送らず、1問回答するごとにサーバーがその1人分だけ判定して返します。ランキング登録時は回答を再採点します。詳細は `docs/adr/` を参照。

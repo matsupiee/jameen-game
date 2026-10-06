@@ -86,8 +86,15 @@ export async function checkAnswer(db: Database, data: z.infer<typeof checkAnswer
   }
 }
 
-/** 回答を再採点したうえでランキングに登録する。スコアはクライアントから受け取らない。 */
-export async function submitScore(db: Database, data: z.infer<typeof submitScoreSchema>) {
+/**
+ * 回答を再採点したうえでランキングに登録する。スコアはクライアントから受け取らない。
+ * userId はログイン中のユーザー（匿名を含む）。セッションがなければ null で登録する。
+ */
+export async function submitScore(
+  db: Database,
+  data: z.infer<typeof submitScoreSchema>,
+  userId: string | null,
+) {
   const questions = await loadQuestions(db, data.quizId)
   if (questions.length === 0) throw new Error('クイズが見つかりません')
   let score: number
@@ -102,7 +109,7 @@ export async function submitScore(db: Database, data: z.infer<typeof submitScore
   }
   const [row] = await db
     .insert(scores)
-    .values({ quizId: data.quizId, playerName: data.playerName, score })
+    .values({ quizId: data.quizId, userId, playerName: data.playerName, score })
     .returning({ id: scores.id })
   return { id: row.id, score }
 }

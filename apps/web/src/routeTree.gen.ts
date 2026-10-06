@@ -14,6 +14,7 @@ import { Route as CelebritiesRouteImport } from './routes/celebrities'
 import { Route as ImagesSplatRouteImport } from './routes/images/$'
 import { Route as QuizQuizIdRouteImport } from './routes/quiz.$quizId'
 import { Route as RankingQuizIdRouteImport } from './routes/ranking.$quizId'
+import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const RankingQuizIdRoute = RankingQuizIdRouteImport.update({
   path: '/ranking/$quizId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
+  id: '/api/auth/$',
+  path: '/api/auth/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,13 +70,25 @@ export interface FileRoutesById {
   '/images/$': typeof ImagesSplatRoute
   '/quiz/$quizId': typeof QuizQuizIdRoute
   '/ranking/$quizId': typeof RankingQuizIdRoute
+  '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/celebrities' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+    | '/'
+    | '/celebrities'
+    | '/images/$'
+    | '/quiz/$quizId'
+    | '/ranking/$quizId'
+    | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/celebrities' | '/images/$' | '/quiz/$quizId' | '/ranking/$quizId'
+  to:
+    | '/'
+    | '/celebrities'
+    | '/images/$'
+    | '/quiz/$quizId'
+    | '/ranking/$quizId'
+    | '/api/auth/$'
   id:
     | '__root__'
     | '/'
@@ -76,6 +96,7 @@ export interface FileRouteTypes {
     | '/images/$'
     | '/quiz/$quizId'
     | '/ranking/$quizId'
+    | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -84,6 +105,7 @@ export interface RootRouteChildren {
   ImagesSplatRoute: typeof ImagesSplatRoute
   QuizQuizIdRoute: typeof QuizQuizIdRoute
   RankingQuizIdRoute: typeof RankingQuizIdRoute
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -123,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RankingQuizIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/auth/$': {
+      id: '/api/auth/$'
+      path: '/api/auth/$'
+      fullPath: '/api/auth/$'
+      preLoaderRoute: typeof ApiAuthSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -132,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImagesSplatRoute: ImagesSplatRoute,
   QuizQuizIdRoute: QuizQuizIdRoute,
   RankingQuizIdRoute: RankingQuizIdRoute,
+  ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

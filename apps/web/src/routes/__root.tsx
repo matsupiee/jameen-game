@@ -1,6 +1,7 @@
 import { HeadContent, Link, Scripts, createRootRoute, useMatch } from '@tanstack/react-router'
 import { TanStackRouterDevtoolsPanel } from '@tanstack/react-router-devtools'
 import { TanStackDevtools } from '@tanstack/react-devtools'
+import { useAnonymousSignIn } from '#/lib/auth-client'
 
 import appCss from '../styles.css?url'
 
@@ -51,6 +52,8 @@ function SiteHeader() {
 }
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  useAnonymousSignIn()
+
   return (
     <html lang="ja">
       <head>

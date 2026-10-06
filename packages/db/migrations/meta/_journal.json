@@ -15,6 +15,13 @@
       "when": 1791166585399,
       "tag": "0001_quiz_genre",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1791287750763,
+      "tag": "0002_auth",
+      "breakpoints": true
     }
   ]
 }
