@@ -2,6 +2,9 @@ import { index, integer, primaryKey, sqliteTable, text } from 'drizzle-orm/sqlit
 import { sql } from 'drizzle-orm'
 import { CATEGORIES } from './category'
 import { GENRES } from './genre'
+import { user } from './auth-schema'
+
+export * from './auth-schema'
 
 export const celebrities = sqliteTable('celebrities', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -50,6 +53,8 @@ export const scores = sqliteTable(
     quizId: integer('quiz_id')
       .notNull()
       .references(() => quizzes.id, { onDelete: 'cascade' }),
+    // 登録したユーザー（匿名ユーザーを含む）。ユーザーが削除されてもスコアは残す
+    userId: text('user_id').references(() => user.id, { onDelete: 'set null' }),
     playerName: text('player_name').notNull(),
     score: integer('score').notNull(),
     createdAt: integer('created_at', { mode: 'timestamp' })

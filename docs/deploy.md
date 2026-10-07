@@ -48,7 +48,19 @@ cd ../..
 bun run db:migrate:remote
 ```
 
-### 5. シード用の API トークンを用意
+### 5. 認証用のシークレットを設定
+
+better-auth（匿名ログイン）がセッションの署名に使う。32文字以上のランダムな文字列にする。
+
+```sh
+cd apps/web
+openssl rand -base64 32 | bunx wrangler secret put BETTER_AUTH_SECRET
+cd ../..
+```
+
+変更すると全員のセッションが無効になり、次のアクセスで新しい匿名ユーザーが作られる（過去のスコアとの紐付けが切れる）。
+
+### 6. シード用の API トークンを用意
 
 ダッシュボード → My Profile → API Tokens → Create Token → Custom token で、次の権限を付けて作成する。
 
@@ -66,7 +78,7 @@ CLOUDFLARE_ACCOUNT_ID=...
 CLOUDFLARE_API_TOKEN=...
 ```
 
-### 6. データと画像を投入
+### 7. データと画像を投入
 
 ```sh
 bun seed --remote --yes
@@ -75,7 +87,7 @@ bun seed --remote --yes
 画像は `celebrities-data.ts` の `imageSourceUrl` からダウンロードして R2 に保存する。
 保存ずみの画像は再ダウンロードしない。取得に失敗した芸能人は画像なしになり、失敗した URL が表示される。
 
-### 7. デプロイ
+### 8. デプロイ
 
 ```sh
 bun run deploy
