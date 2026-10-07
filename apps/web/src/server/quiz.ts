@@ -22,6 +22,13 @@ export const submitScore = createServerFn({ method: 'POST' })
     return quiz.submitScore(getDb(), data, user?.id ?? null)
   })
 
+export const renameScore = createServerFn({ method: 'POST' })
+  .validator(quiz.renameScoreSchema)
+  .handler(async ({ data }) => {
+    const user = await getSessionUser()
+    return quiz.renameScore(getDb(), data, user?.id ?? null)
+  })
+
 export const getRanking = createServerFn({ method: 'GET' })
   .validator(quiz.quizIdSchema)
   .handler(({ data }) => quiz.getRanking(getDb(), data))

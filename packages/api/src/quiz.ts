@@ -1,4 +1,4 @@
-import { asc, desc, eq, sql } from 'drizzle-orm'
+import { and, asc, desc, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import type { Database } from '@jameen/db'
 import { CATEGORIES } from '@jameen/db/category'
@@ -6,6 +6,8 @@ import { celebrities, quizCelebrities, quizzes, scores } from '@jameen/db/schema
 import { grade, InvalidAnswersError } from './grade'
 
 const PLAYER_NAME_MAX = 20
+
+const playerNameSchema = z.string().trim().min(1).max(PLAYER_NAME_MAX)
 
 const categorySchema = z.enum(CATEGORIES)
 
@@ -18,7 +20,12 @@ export const checkAnswerSchema = quizIdSchema.extend({
 
 export const submitScoreSchema = quizIdSchema.extend({
   answers: z.array(z.object({ celebrityId: z.number().int().positive(), answer: categorySchema })),
-  playerName: z.string().trim().min(1).max(PLAYER_NAME_MAX),
+  playerName: playerNameSchema,
+})
+
+export const renameScoreSchema = z.object({
+  scoreId: z.number().int().positive(),
+  playerName: playerNameSchema,
 })
 
 async function loadQuestions(db: Database, quizId: number) {
@@ -112,6 +119,24 @@ export async function submitScore(
     .values({ quizId: data.quizId, userId, playerName: data.playerName, score })
     .returning({ id: scores.id })
   return { id: row.id, score }
+}
+
+/**
+ * 自動登録したスコアのニックネームを変更する。登録したユーザー本人のスコアだけ変更できる。
+ */
+export async function renameScore(
+  db: Database,
+  data: z.infer<typeof renameScoreSchema>,
+  userId: string | null,
+) {
+  if (!userId) throw new Error('ログインしていないため名前を変更できません')
+  const [row] = await db
+    .update(scores)
+    .set({ playerName: data.playerName })
+    .where(and(eq(scores.id, data.scoreId), eq(scores.userId, userId)))
+    .returning({ id: scores.id, playerName: scores.playerName })
+  if (!row) throw new Error('スコアが見つかりません')
+  return row
 }
 
 export async function getRanking(db: Database, data: z.infer<typeof quizIdSchema>) {

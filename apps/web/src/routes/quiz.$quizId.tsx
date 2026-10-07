@@ -1,12 +1,30 @@
-import { useState } from 'react'
-import { createFileRoute, Link, useNavigate } from '@tanstack/react-router'
+import { useEffect, useRef, useState } from 'react'
+import { createFileRoute, Link } from '@tanstack/react-router'
 import { QuizPlayer, type AnswerRecord } from '#/components/QuizPlayer'
 import { ShareButtons } from '#/components/ShareButtons'
 import { CATEGORY_LABEL, CATEGORY_SHORT } from '#/shared/category'
-import { getQuiz, submitScore } from '#/server/quiz'
+import { getQuiz, renameScore, submitScore } from '#/server/quiz'
 import { seo } from '#/shared/seo'
 
 const NAME_KEY = 'jameen-game:player-name'
+// ニックネームを一度も設定していない人は、この名前でランキングに自動登録する
+const DEFAULT_PLAYER_NAME = 'ゲスト'
+
+function loadPlayerName() {
+  try {
+    return localStorage.getItem(NAME_KEY) || DEFAULT_PLAYER_NAME
+  } catch {
+    return DEFAULT_PLAYER_NAME
+  }
+}
+
+function savePlayerName(name: string) {
+  try {
+    localStorage.setItem(NAME_KEY, name)
+  } catch {
+    // 保存できなくても登録自体は成功しているので無視する
+  }
+}
 
 export const Route = createFileRoute('/quiz/$quizId')({
   loader: ({ params }) => getQuiz({ data: { quizId: Number(params.quizId) } }),
@@ -74,43 +92,59 @@ function Result({
   records: AnswerRecord[]
   onRetry: () => void
 }) {
-  const navigate = useNavigate()
-  const [playerName, setPlayerName] = useState(() => {
-    try {
-      return localStorage.getItem(NAME_KEY) ?? ''
-    } catch {
-      return ''
-    }
-  })
+  // 自動登録したスコアのID。登録が終わるまでは null
+  const [scoreId, setScoreId] = useState<number | null>(null)
+  // ランキングに載っている名前と、入力欄の名前
+  const [savedName, setSavedName] = useState<string | null>(null)
+  const [playerName, setPlayerName] = useState('')
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState<string | null>(null)
+  // StrictMode で effect が2回走っても、同じプレイを二重に登録しないようにする
+  const submitted = useRef(false)
 
   const score = records.filter((r) => r.correct).length
   const nameById = new Map(celebrities.map((c) => [c.id, c.name]))
 
-  const register = async (e: React.FormEvent) => {
+  // 結果画面を表示した時点でランキングに自動登録する
+  useEffect(() => {
+    if (submitted.current) return
+    submitted.current = true
+    const name = loadPlayerName()
+    setPlayerName(name)
+    submitScore({
+      data: {
+        quizId,
+        playerName: name,
+        answers: records.map((r) => ({ celebrityId: r.celebrityId, answer: r.answer })),
+      },
+    })
+      .then((res) => {
+        setScoreId(res.id)
+        setSavedName(name)
+      })
+      .catch((err) => {
+        setSaveError(err instanceof Error ? err.message : 'ランキングへの登録に失敗しました')
+      })
+  }, [quizId, records])
+
+  const rename = async (e: React.FormEvent) => {
     e.preventDefault()
+    if (scoreId === null) return
     setSaving(true)
     setSaveError(null)
     try {
-      await submitScore({
-        data: {
-          quizId,
-          playerName,
-          answers: records.map((r) => ({ celebrityId: r.celebrityId, answer: r.answer })),
-        },
-      })
-      try {
-        localStorage.setItem(NAME_KEY, playerName.trim())
-      } catch {
-        // 保存できなくても登録自体は成功しているので無視する
-      }
-      await navigate({ to: '/ranking/$quizId', params: { quizId: String(quizId) } })
+      const row = await renameScore({ data: { scoreId, playerName } })
+      setSavedName(row.playerName)
+      setPlayerName(row.playerName)
+      savePlayerName(row.playerName)
     } catch (err) {
-      setSaveError(err instanceof Error ? err.message : '登録に失敗しました')
+      setSaveError(err instanceof Error ? err.message : '名前の変更に失敗しました')
+    } finally {
       setSaving(false)
     }
   }
+
+  const nameChanged = playerName.trim() !== '' && playerName.trim() !== savedName
 
   return (
     <div className="space-y-6">
@@ -124,23 +158,34 @@ function Result({
 
       <ShareButtons quizId={quizId} quizTitle={quizTitle} results={records.map((r) => r.correct)} />
 
-      <form onSubmit={register} className="flex gap-2">
-        <input
-          value={playerName}
-          onChange={(e) => setPlayerName(e.target.value)}
-          maxLength={20}
-          required
-          placeholder="ニックネーム（20文字まで）"
-          className="min-w-0 flex-1 rounded-xl bg-surface px-4 py-3 ring-1 ring-line outline-none focus:ring-sand"
-        />
-        <button
-          type="submit"
-          disabled={saving || playerName.trim() === ''}
-          className="bg-crimson rounded-xl px-4 py-3 font-bold text-ink disabled:opacity-50"
-        >
-          ランキングに登録
-        </button>
-      </form>
+      <div className="space-y-2">
+        <p className="text-sm text-muted">
+          {savedName !== null
+            ? `「${savedName}」としてランキングに登録しました`
+            : saveError
+              ? 'ランキングに登録できませんでした'
+              : 'ランキングに登録中…'}
+        </p>
+        <form onSubmit={rename} className="flex gap-2">
+          <input
+            value={playerName}
+            onChange={(e) => setPlayerName(e.target.value)}
+            maxLength={20}
+            required
+            disabled={scoreId === null}
+            aria-label="ニックネーム"
+            placeholder="ニックネーム（20文字まで）"
+            className="min-w-0 flex-1 rounded-xl bg-surface px-4 py-3 ring-1 ring-line outline-none focus:ring-sand disabled:opacity-50"
+          />
+          <button
+            type="submit"
+            disabled={scoreId === null || saving || !nameChanged}
+            className="bg-crimson rounded-xl px-4 py-3 font-bold text-ink disabled:opacity-50"
+          >
+            名前を変更
+          </button>
+        </form>
+      </div>
       {saveError && <p className="text-ari">{saveError}</p>}
 
       <ul className="space-y-2">
