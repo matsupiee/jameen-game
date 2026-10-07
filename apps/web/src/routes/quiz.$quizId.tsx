@@ -4,18 +4,22 @@ import { QuizPlayer, type AnswerRecord } from '#/components/QuizPlayer'
 import { ShareButtons } from '#/components/ShareButtons'
 import { CATEGORY_LABEL, CATEGORY_SHORT } from '#/shared/category'
 import { getQuiz, renameScore, submitScore } from '#/server/quiz'
+import { generateRandomName } from '#/shared/random-name'
 import { seo } from '#/shared/seo'
 
 const NAME_KEY = 'jameen-game:player-name'
-// ニックネームを一度も設定していない人は、この名前でランキングに自動登録する
-const DEFAULT_PLAYER_NAME = 'ゲスト'
 
+/** 保存済みのニックネームを返す。なければランダムに名前を作って保存し、次回以降も同じ名前を使う */
 function loadPlayerName() {
   try {
-    return localStorage.getItem(NAME_KEY) || DEFAULT_PLAYER_NAME
+    const saved = localStorage.getItem(NAME_KEY)
+    if (saved) return saved
   } catch {
-    return DEFAULT_PLAYER_NAME
+    // 読めなければ毎回ランダムな名前になるだけなので無視する
   }
+  const name = generateRandomName()
+  savePlayerName(name)
+  return name
 }
 
 function savePlayerName(name: string) {
