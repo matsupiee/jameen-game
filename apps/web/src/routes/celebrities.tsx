@@ -1,9 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { listCelebrities } from '#/server/celebrity'
+import { seo } from '#/shared/seo'
 
-// 登録済みの著名人を確認するためのページ。トップページからの導線はない
+// 登録済みの著名人を確認するためのページ。トップページからの導線はなく、検索エンジンにも載せない
 export const Route = createFileRoute('/celebrities')({
   loader: () => listCelebrities(),
+  head: () => seo({ title: '著名人リスト', path: '/celebrities', noindex: true }),
   component: CelebritiesPage,
 })
 

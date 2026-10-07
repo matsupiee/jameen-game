@@ -13,6 +13,8 @@ export const Route = createFileRoute('/images/$')({
         object.writeHttpMetadata(headers)
         headers.set('etag', object.httpEtag)
         headers.set('cache-control', 'public, max-age=31536000, immutable')
+        // 芸能人の写真がこのサイトの画像として画像検索に載らないようにする
+        headers.set('x-robots-tag', 'noindex')
         return new Response(object.body, { headers })
       },
     },

@@ -1,8 +1,16 @@
 import { createFileRoute, Link } from '@tanstack/react-router'
 import { getRanking } from '#/server/quiz'
+import { seo } from '#/shared/seo'
 
 export const Route = createFileRoute('/ranking/$quizId')({
   loader: ({ params }) => getRanking({ data: { quizId: Number(params.quizId) } }),
+  // ニックネームが並ぶだけのページなので検索結果には出さない。シェアされたときの OGP は付ける
+  head: ({ loaderData, params }) =>
+    seo({
+      title: loaderData ? `${loaderData.quiz.title} ランキング` : 'ランキング',
+      path: `/ranking/${params.quizId}`,
+      noindex: true,
+    }),
   component: RankingPage,
 })
 

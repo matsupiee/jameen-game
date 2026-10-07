@@ -70,6 +70,14 @@ bun run dev                # http://localhost:3000（使用中なら次のポー
   ジャンルは `profile` の最初の肩書きから `packages/db/seed/genres.ts` で決まり（司会者・コメンテーターなどは
   タレント扱い）、ジャンル内の人数 ÷ 10 セットを重複なしで作る。MIX 編は全員から犯罪者2・不祥事3・善人5で作る
 
+## SEO・シェア
+
+- 各ページの title・description・OGP・canonical・robots は `apps/web/src/shared/seo.ts` の `seo()` で `head` に設定する。
+  URL はリクエストのオリジンから作るので、独自ドメインでも workers.dev でもそのまま動く
+- 検索結果に出すのはトップとクイズのページだけ（`/sitemap.xml` に載る）。ランキングと `/celebrities` は `noindex`、
+  `/images/*` の芸能人の写真は `X-Robots-Tag: noindex` で画像検索に載せない
+- OGP 画像は `apps/web/public/og.png`（1200×630。ロゴと「顔写真を見て善悪を判定しよう」）。結果画面のシェアボタンは `apps/web/src/components/ShareButtons.tsx`
+
 ## 設計メモ
 
 ログインは better-auth の anonymous プラグインによる匿名ログインのみ。初回アクセス時に自動で匿名ユーザーを作り、
